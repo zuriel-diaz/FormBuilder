@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<script type="application/javascript" src="./resources/js/form-builder.js"></script>
+</head>
+<body>
+	<div id="container"></div>
+
+	<script type="application/javascript">
+
+		// initialize FormBuilder Object
+		var formBuilder = new FormBuilder({
+			'action'	:'/register',
+			'method'	:'get',
+			'class'		:'myForm'
+		});
+		
+		// define 'fields' Array
+		var fields = [
+			{"name":"email","type":"input","others":{"input_type":"text","placeholder":"email..."}}
+		];
+
+		// add fields
+		formBuilder.setFields(fields);
+
+		// draw HTML form into 'div' element specified 
+		formBuilder.generate('container');
+
+	</script>
+</body>
+</html>
