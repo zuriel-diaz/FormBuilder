@@ -44,15 +44,12 @@ class FormBuilder{
 				text 	= document.createTextNode(data.others.label);
 				label.appendChild(text);
 				
-
-				// create
-
-				// generate select
+				// creating select component
 				select	= document.createElement('select');
 				select.setAttribute('class','form-control');
 				select.setAttribute('id',data.name);
 
-				// adding options
+				// adding options to previously component
 				for(var position = 0; position < data.others.options.length; position++){
 					var option 		= document.createElement("option");
 					var item 		= data.others.options[position];
@@ -61,7 +58,7 @@ class FormBuilder{
 					select.appendChild(option);
 				}
 
-				// generate div container
+				// DIV container
 				node 	= document.createElement('div');
 				node.setAttribute('class','form-group');
 				node.appendChild(label);
