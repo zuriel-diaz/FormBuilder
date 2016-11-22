@@ -10,6 +10,7 @@ class FormBuilder{
 		var node 		= null;
 		var label 		= null;
 		var input		= null;
+		var select		= null;
 		var text 		= null;
 
 		switch(data.type){
@@ -34,6 +35,38 @@ class FormBuilder{
 				node.setAttribute('class','form-group');
 				node.appendChild(label);
 				node.appendChild(input);
+			break;
+			case 'select':
+
+				// generate label
+				label 	= document.createElement('label');
+				label.setAttribute('for',data.name);
+				text 	= document.createTextNode(data.others.label);
+				label.appendChild(text);
+				
+
+				// create
+
+				// generate select
+				select	= document.createElement('select');
+				select.setAttribute('class','form-control');
+				select.setAttribute('id',data.name);
+
+				// adding options
+				for(var position = 0; position < data.others.options.length; position++){
+					var option 		= document.createElement("option");
+					var item 		= data.others.options[position];
+					option.value 	= item.value;
+					option.text 	= item.text;
+					select.appendChild(option);
+				}
+
+				// generate div container
+				node 	= document.createElement('div');
+				node.setAttribute('class','form-group');
+				node.appendChild(label);
+				node.appendChild(select);
+
 			break;
 		}
 
