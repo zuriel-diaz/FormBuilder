@@ -19,7 +19,7 @@ class FormBuilder{
 				// generate label
 				label 	= document.createElement('label');
 				label.setAttribute('for',data.name);
-				text 	= document.createTextNode(data.name);
+				text 	= document.createTextNode(data.others.label);
 				label.appendChild(text);
 				
 				// generate input 
