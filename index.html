@@ -57,19 +57,22 @@
 		});
 		
 		// define 'fields' Array
-		var fields = [
+		/*
+    var fields = [
 			{"name":"first_name","type":"input","others":{"input_type":"text","label":"First Name","placeholder":"First name"}},
 			{"name":"last_name","type":"input","others":{"input_type":"text","label":"Last Name","placeholder":"Last name"}},
       {"name":"genre","type":"select","others":{"label":"Genre","options":[{"value":"male","text":"Male"},{"value":"female","text":"Female"}]}},
 			{"name":"email","type":"input","others":{"input_type":"text","label":"Email","placeholder":"email..."}},
       {"name":"country","type":"select","others":{"label":"Country","options":[{"value":"mx","text":"Mexico"},{"value":"usa","text":"USA"}]}},
 		];
+    */
+    var fields = [], table_name = 'experiment';
 
 		// adding fields
 		formBuilder.setFields(fields);
 
 		// draw HTML form into 'div' element specified 
-		formBuilder.generate('formbuilder-container');
+		formBuilder.generate('formbuilder-container',table_name);
 
 	</script>
 </body>
