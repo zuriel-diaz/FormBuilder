@@ -73,22 +73,40 @@ class FormBuilder{
 	// save fields data
 	setFields(_fields){this.fields=_fields;}
 
+	httpRequest(method,url){
+
+		switch(method){
+			case 'get':
+				var xmlHttp = new XMLHttpRequest();
+				xmlHttp.open("GET".url, false); // false for syncrhonous request
+				xmlHttp.send(null);
+				return xmlHttp.responseText;
+			break;
+			case 'post':
+			break;
+		}
+	}
+
 	// Basically here is the key operation.
-	generate(container_identifier){
+	generate(container_identifier,table_name){
 		
 		// get container
 		var container 	= document.getElementById(container_identifier);
 
-		// create form element & set attributes
-		var form 	= document.createElement('form');
-		form.setAttribute('action',this.action_uri);
-		form.setAttribute('method',this.method);
-		form.setAttribute('class',this.class_name);
+		if(table_name){
+			// create form element & set attributes
+			var form 	= document.createElement('form');
+			form.setAttribute('action',this.action_uri);
+			form.setAttribute('method',this.method);
+			form.setAttribute('class',this.class_name);
 
-		// reading fields data & generate component
-		for(var position = 0; position < this.fields.length; position++){
-			var field = this.generateField(this.fields[position]);
-			form.appendChild(field);
+			// reading fields data & generate component
+			for(var position = 0; position < this.fields.length; position++){
+				var field = this.generateField(this.fields[position]);
+				form.appendChild(field);
+			}
+		}else{
+
 		}
 
 		// adding default button
