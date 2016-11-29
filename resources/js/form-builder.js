@@ -78,8 +78,8 @@ class FormBuilder{
 		switch(method){
 			case 'get':
 				var xmlHttp = new XMLHttpRequest();
-				xmlHttp.open("GET".url, false); // false for syncrhonous request
-				xmlHttp.send(null);
+				xmlHttp.open("GET",url, false); // false for syncrhonous request
+				xmlHttp.send();
 				return xmlHttp.responseText;
 			break;
 			case 'post':
@@ -93,20 +93,34 @@ class FormBuilder{
 		// get container
 		var container 	= document.getElementById(container_identifier);
 
-		if(table_name){
-			// create form element & set attributes
-			var form 	= document.createElement('form');
-			form.setAttribute('action',this.action_uri);
-			form.setAttribute('method',this.method);
-			form.setAttribute('class',this.class_name);
+		// create form element & set attributes
+		var form 	= document.createElement('form');
+		form.setAttribute('action',this.action_uri);
+		form.setAttribute('method',this.method);
+		form.setAttribute('class',this.class_name);
 
+		// if we have a table name 
+		if(table_name){
+			
+			var url = 'http://127.0.0.1:3600/api/'+table_name;
+			var response = this.httpRequest('get',url);
+			
+			// check if we have data
+			if(response){
+				var resp = JSON.parse(response);
+				// now we need to read our data and check if we found problems with this request
+				if(!resp.errors){	
+
+				}else{ console.log("Houston we have problems trying to generate current form. table name->"+table_name); }
+
+			}else{console.log("we do not have data.");}
+
+		}else{
 			// reading fields data & generate component
 			for(var position = 0; position < this.fields.length; position++){
 				var field = this.generateField(this.fields[position]);
 				form.appendChild(field);
 			}
-		}else{
-
 		}
 
 		// adding default button
