@@ -3,6 +3,7 @@ class FormBuilder{
 	constructor(data){
 		this.action_uri	= data.action;
 		this.class_name	= data.class;
+		this.identifier = data.identifier;
 		this.method 	= data.method;
 	}
 
@@ -27,6 +28,7 @@ class FormBuilder{
 				input	= document.createElement('input');
 				input.setAttribute('type',data.others.input_type);
 				input.setAttribute('id',data.name);
+				input.setAttribute('data-field-name',data.name);
 				input.setAttribute('class','form-control');
 				input.setAttribute('placeholder',data.others.placeholder);
 
@@ -113,7 +115,9 @@ class FormBuilder{
 		var form 	= document.createElement('form');
 		form.setAttribute('action',this.action_uri);
 		form.setAttribute('method',this.method);
+		form.setAttribute('id',this.identifier);
 		form.setAttribute('class',this.class_name);
+		form.setAttribute('data-tn',table_name);
 
 		// if we have a table name 
 		if(table_name){
@@ -141,7 +145,6 @@ class FormBuilder{
 								field.others.placeholder = resp.data[position].field_name;
 							break;
 						}
-
 						fields.push(field);
 					}
 
