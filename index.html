@@ -51,9 +51,10 @@
 
 		// initialize FormBuilder Object
 		var formBuilder = new FormBuilder({
-			'action'	:'/register',
-			'method'	:'get',
-			'class'		:'myForm'
+			'action'	    :'/register',
+			'method'	    :'get',
+      'identifier'  :'fm-exp',
+			'class'		    :'myForm'
 		});
 		
 		// define 'fields' Array
@@ -75,5 +76,6 @@
 		formBuilder.generate('formbuilder-container',table_name);
 
 	</script>
+  <script type="text/javascript" src="./resources/js/form-validation.js"></script>
 </body>
 </html>
