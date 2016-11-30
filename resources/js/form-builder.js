@@ -87,6 +87,22 @@ class FormBuilder{
 		}
 	}
 
+	generateUIComponents(form,data){
+		if(data){
+			// reading fields data & generate component
+			for(var position = 0; position < data.length; position++){
+				var field = this.generateField(data[position]);
+				form.appendChild(field);
+			}
+		}else{
+			// reading fields data & generate component
+			for(var position = 0; position < this.fields.length; position++){
+				var field = this.generateField(this.fields[position]);
+				form.appendChild(field);
+			}
+		}
+	}
+
 	// Basically here is the key operation.
 	generate(container_identifier,table_name){
 		
@@ -108,19 +124,36 @@ class FormBuilder{
 			// check if we have data
 			if(response){
 				var resp = JSON.parse(response);
+				var fields = [];
 				// now we need to read our data and check if we found problems with this request
 				if(!resp.errors){	
+					for(var position = 0; position < resp.data.length; position++){
+						//console.log('field name->'+resp.data[position].field_name+',field type->'+resp.data[position].field_type+',field length->'+resp.data[position].field_length);
+					
+						var field = {"others":{}};
+
+						switch(resp.data[position].field_type){
+							case 'varchar':
+								field.name = resp.data[position].field_name;
+								field.type = "input";
+								field.others.input_type = "text";
+								field.others.label = resp.data[position].field_name;
+								field.others.placeholder = resp.data[position].field_name;
+							break;
+						}
+
+						fields.push(field);
+					}
+
+					this.generateUIComponents(form,fields);
 
 				}else{ console.log("Houston we have problems trying to generate current form. table name->"+table_name); }
 
 			}else{console.log("we do not have data.");}
 
-		}else{
-			// reading fields data & generate component
-			for(var position = 0; position < this.fields.length; position++){
-				var field = this.generateField(this.fields[position]);
-				form.appendChild(field);
-			}
+		}else{ 
+			// Basically this means that we are getting fields from 'FormBuilder' object initialization.
+			this.generateComponents(form,null);
 		}
 
 		// adding default button
@@ -135,6 +168,5 @@ class FormBuilder{
 		// finally add form element into container.
 		container.appendChild(form);
 	}
-
 
 }
