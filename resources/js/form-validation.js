@@ -19,16 +19,15 @@ function sendData(data){
 
 function main(){
 	$("form#fm-exp").submit(function(evt){
-		var data = {fields:[]};
+		var data = {};
 
 		// get data
 		data.table_name = $("form#fm-exp").attr("data-tn");
 
 		$("form#fm-exp input[type=text]").each(function(){
-			var field = {};
-			field.name = $(this).attr("data-field-name");
-			field.text = $(this).val();
-			if(field){data.fields.push(field)};
+			var key 	= $(this).attr("data-field-name");
+			var value 	= $(this).val();
+			if(key && value){ data[key] = value; }
 		});
 
 		// send data through AJAX
@@ -37,6 +36,5 @@ function main(){
 		evt.preventDefault();
 	});
 }
-
 
 $(document).ready(main);
