@@ -67,8 +67,11 @@
             'action'      :'/update',
             'method'      :'post',
             'identifier'  :'fm-expx',
-            'class'       :'myForm'
+            'class'       :'myForm',
+            'action_type' :'update'
           });
+
+          var table_name = params.table_name;
 
           // generate Objects array to generate UI Components
           var data = JSON.parse(xhr.responseText), fields = data.fields;
@@ -80,7 +83,7 @@
                 item.type = "input";
                 item.others.input_type = "text";
                 item.others.label = key;
-                item.others.placeholder = fields[key];
+                item.others.text = fields[key];
                 items.push(item);
               }
             }
@@ -90,7 +93,7 @@
           fBuilder.setFields(items);
 
           // draw UI Components
-          fBuilder.generate('formbuilder-container',null);
+          fBuilder.generate('formbuilder-container',table_name);
 
         }else{'status->'+xhr.status;}
       }
