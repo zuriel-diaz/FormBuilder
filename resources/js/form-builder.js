@@ -1,10 +1,11 @@
 class FormBuilder{
 
 	constructor(data){
-		this.action_uri	= data.action;
-		this.class_name	= data.class;
-		this.identifier = data.identifier;
-		this.method 	= data.method;
+		this.action_uri		= data.action;
+		this.class_name		= data.class;
+		this.identifier 	= data.identifier;
+		this.method 		= data.method;
+		this.action_type 	= data.action_type; 
 	}
 
 	generateField(data){
@@ -31,6 +32,8 @@ class FormBuilder{
 				input.setAttribute('data-field-name',data.name);
 				input.setAttribute('class','form-control');
 				input.setAttribute('placeholder',data.others.placeholder);
+				// set value only when we get a 
+				if(data.others.text){ input.setAttribute('value',data.others.text); }
 
 				// generate div container & set elements
 				node 	= document.createElement('div');
@@ -118,46 +121,50 @@ class FormBuilder{
 		form.setAttribute('id',this.identifier);
 		form.setAttribute('class',this.class_name);
 		form.setAttribute('data-tn',table_name);
+		form.setAttribute('data-action-type',this.action_type);
 
 		// if we have a table name 
 		if(table_name){
 			
-			var url = 'http://127.0.0.1:3600/api/'+table_name;
-			var response = this.httpRequest('get',url);
-			
-			// check if we have data
-			if(response){
-				var resp = JSON.parse(response);
-				var fields = [];
-				// now we need to read our data and check if we found problems with this request
-				if(!resp.errors){	
-					for(var position = 0; position < resp.data.length; position++){
-						//console.log('field name->'+resp.data[position].field_name+',field type->'+resp.data[position].field_type+',field length->'+resp.data[position].field_length);
-					
-						var field = {"others":{}};
+			if( this.fields.length == 0 && this.action_type === 'insert'){
+				
+				var url = 'http://127.0.0.1:3600/api/'+table_name;
+				var response = this.httpRequest('get',url);
+				
+				// check if we have data
+				if(response){
+					var resp = JSON.parse(response);
+					var fields = [];
+					// now we need to read our data and check if we found problems with this request
+					if(!resp.errors){	
+						for(var position = 0; position < resp.data.length; position++){
+						
+							var field = {"others":{}};
 
-						switch(resp.data[position].field_type){
-							case 'varchar':
-								field.name = resp.data[position].field_name;
-								field.type = "input";
-								field.others.input_type = "text";
-								field.others.label = resp.data[position].field_name;
-								field.others.placeholder = resp.data[position].field_name;
-							break;
+							switch(resp.data[position].field_type){
+								case 'varchar':
+									field.name = resp.data[position].field_name;
+									field.type = "input";
+									field.others.input_type = "text";
+									field.others.label = resp.data[position].field_name;
+									field.others.placeholder = resp.data[position].field_name;
+								break;
+							}
+							fields.push(field);
 						}
-						fields.push(field);
-					}
 
-					this.generateUIComponents(form,fields);
+						this.generateUIComponents(form,fields);
 
-				}else{ console.log("Houston we have problems trying to generate current form. table name->"+table_name); }
+					}else{ console.log("Houston we have problems trying to generate current form. table name->"+table_name); }
 
-			}else{console.log("we do not have data.");}
+				}else{console.log("we do not have data.");}
+			}
+			else if( this.fields.length > 0 && (this.action_type === 'insert' || this.action_type === 'update') ){
 
-		}else{ 
-			// Basically this means that we are getting fields from 'FormBuilder' object initialization.
-			this.generateUIComponents(form,null);
-		}
+				// Basically this means that we are getting fields from 'FormBuilder' object initialization.
+				this.generateUIComponents(form,null);
+			}
+		}else{ console.log('table name is empty->'+table_name); }
 
 		// adding default button
 		var text 	= "";
