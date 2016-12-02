@@ -54,12 +54,15 @@
 			'action'	    :'/register',
 			'method'	    :'get',
       'identifier'  :'fm-exp',
-			'class'		    :'myForm'
+			'class'		    :'myForm',
+      'action_type' :'insert'
 		});
 		
+    var fields = [], table_name = 'experiment';
+
 		// define 'fields' Array
 		/*
-    var fields = [
+    fields = [
 			{"name":"first_name","type":"input","others":{"input_type":"text","label":"First Name","placeholder":"First name"}},
 			{"name":"last_name","type":"input","others":{"input_type":"text","label":"Last Name","placeholder":"Last name"}},
       {"name":"genre","type":"select","others":{"label":"Genre","options":[{"value":"male","text":"Male"},{"value":"female","text":"Female"}]}},
@@ -67,8 +70,6 @@
       {"name":"country","type":"select","others":{"label":"Country","options":[{"value":"mx","text":"Mexico"},{"value":"usa","text":"USA"}]}},
 		];
     */
-    var fields = [], table_name = 'experiment';
-
 		// adding fields
 		formBuilder.setFields(fields);
 
