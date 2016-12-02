@@ -156,7 +156,7 @@ class FormBuilder{
 
 		}else{ 
 			// Basically this means that we are getting fields from 'FormBuilder' object initialization.
-			this.generateComponents(form,null);
+			this.generateUIComponents(form,null);
 		}
 
 		// adding default button
