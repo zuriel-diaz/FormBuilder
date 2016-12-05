@@ -24,7 +24,7 @@ function main(){
 
 		// get data table name & action type (this means 'insert' or 'update' action).
 		data.table_name = $(form_prefix+form_id).attr("data-tn");
-		dat.action_type = $(form_prefix+form_id).attr("data-action-type");
+		data.action_type = $(form_prefix+form_id).attr("data-action-type");
 
 		// now we need to get the field names from 'data-field-name' attribute
 		$((form_prefix+form_id)+" input[type=text]").each(function(){
