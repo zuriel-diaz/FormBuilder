@@ -104,6 +104,7 @@
               // get data table name & action type (this means 'insert' or 'update' action).
               data.table_name   = $(this).attr("data-tn");
               data.action_type  = $(this).attr("data-action-type");
+              if(params.id){data.user_identifier = params.id; }
 
               $("form input[type=text]").each(function(key,field){
                 var key = $(field).attr("data-field-name");
