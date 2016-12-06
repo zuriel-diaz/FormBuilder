@@ -46,7 +46,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script type="application/javascript" src="./resources/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="./resources/js/urlParameters.js"></script>
-  <script type="text/javascript" src="./resources/js/requestHandler.js"></script>
   <script type="application/javascript" src="./resources/js/form-builder.js"></script>
   <script type="text/javascript">
     var urlP = new URLParameter();
@@ -95,6 +94,46 @@
           // draw UI Components
           fBuilder.generate('formbuilder-container',table_name);
 
+          // check if form exist
+          if( $("form#fm-expx").length ){
+            $("form").bind("submit",function(event){
+              event.preventDefault();
+
+              var data = {};
+
+              // get data table name & action type (this means 'insert' or 'update' action).
+              data.table_name   = $(this).attr("data-tn");
+              data.action_type  = $(this).attr("data-action-type");
+
+              $("form input[type=text]").each(function(key,field){
+                var key = $(field).attr("data-field-name");
+                var value = $(field).val();
+                if(key && value){ data[key] = value; }
+              });
+
+              // send data through AJAX
+              if(data){
+                console.log(data);
+                var data_hub = "http://127.0.0.1:3600/api/datahub";
+
+                $.ajax({
+                  url:          data_hub,
+                  type:         'POST',
+                  contentType:  'application/json',
+                  data:         JSON.stringify(data),
+                  dataType:     'json',
+                  success:      function(responseData, textStatus, jQxhr){
+                    console.log(responseData);
+                  },
+                  error:        function(jQxhr, textStatus, errorThrown){
+                    console.log(errorThrown);
+                  }
+                });
+              }
+
+            });
+          }
+
         }else{'status->'+xhr.status;}
       }
       xhr.send(JSON.stringify(params));
@@ -103,6 +142,5 @@
     }
 
   </script>
-  <script type="text/javascript" src="./resources/js/form-validation.js"></script>
 </body>
 </html>
