@@ -19,21 +19,41 @@ class FormBuilder{
 
 			case 'input':
 
-				// generate label
+				// label
 				label 	= document.createElement('label');
 				label.setAttribute('for',data.name);
 				text 	= document.createTextNode(data.others.label);
 				label.appendChild(text);
 				
-				// generate input 
+				// input 
 				input	= document.createElement('input');
 				input.setAttribute('type',data.others.input_type);
 				input.setAttribute('id',data.name);
 				input.setAttribute('data-field-name',data.name);
 				input.setAttribute('class','form-control');
-				input.setAttribute('placeholder',data.others.placeholder);
-				// set value only when we get a 
+				// set the following values only when exist.
+				if(data.others.placeholder){ input.setAttribute('placeholder',data.others.placeholder); }
 				if(data.others.text){ input.setAttribute('value',data.others.text); }
+
+				// generate div container & set elements
+				node 	= document.createElement('div');
+				node.setAttribute('class','form-group');
+				node.appendChild(label);
+				node.appendChild(input);
+			break;
+			case 'textarea':
+				// label
+				label 	= document.createElement('label');
+				label.setAttribute('for',data.name);
+				text 	= document.createTextNode(data.others.label);
+				label.appendChild(text);
+
+				// textarea 
+				input	= document.createElement('textarea');
+				input.setAttribute('id',data.name);
+				input.setAttribute('data-field-name',data.name);
+				input.setAttribute('rows','5');
+				input.setAttribute('class','form-control');
 
 				// generate div container & set elements
 				node 	= document.createElement('div');
@@ -43,13 +63,13 @@ class FormBuilder{
 			break;
 			case 'select':
 
-				// generate label
+				// label
 				label 	= document.createElement('label');
 				label.setAttribute('for',data.name);
 				text 	= document.createTextNode(data.others.label);
 				label.appendChild(text);
 				
-				// creating select component
+				// select component
 				select	= document.createElement('select');
 				select.setAttribute('class','form-control');
 				select.setAttribute('id',data.name);
@@ -148,6 +168,17 @@ class FormBuilder{
 									field.others.input_type = "text";
 									field.others.label = resp.data[position].field_name;
 									field.others.placeholder = resp.data[position].field_name;
+								break;
+								case 'text':
+									field.name = resp.data[position].field_name;
+									field.type = "textarea";
+									field.others.label = resp.data[position].field_name;
+								break;
+								case 'int':
+									field.name = resp.data[position].field_name;
+									field.type = "input";
+									field.others.input_type = "number";
+									field.others.label = resp.data[position].field_name;
 								break;
 							}
 							fields.push(field);
