@@ -26,12 +26,18 @@ function main(){
         data.table_name   = $(this).attr("data-tn");
         data.action_type  = $(this).attr("data-action-type");
 
-        $("form input[type=text]").each(function(key,field){
-            var key = $(field).attr("data-field-name");
-            var value = $(field).val();
-            if(key && value){ data[key] = value; }
-        });
-        console.log(data);
+        var html_controls = ["input", "textarea"];
+
+        for(var position = 0; position < html_controls.length; position++){
+        	var html_control = "form "+html_controls[position];
+
+        	$(html_control).each(function(key,field){
+	            var key = $(field).attr("data-field-name");
+	            var value = $(field).val();
+	            if(key && value){ data[key] = value; }
+       		 });
+        }
+
 		// send data through AJAX
 		sendData(data);
 	});
