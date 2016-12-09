@@ -26,11 +26,13 @@ class FormBuilder{
 				label.appendChild(text);
 				
 				// input 
+				var input_type = (data.others.input_type==='datetime') ? 'text' : data.others.input_type;
 				input	= document.createElement('input');
-				input.setAttribute('type',data.others.input_type);
+				input.setAttribute('type',input_type);
 				input.setAttribute('id',data.name);
 				input.setAttribute('data-field-name',data.name);
 				input.setAttribute('class','form-control');
+				
 				// set the following values only when exist.
 				if(data.others.placeholder){ input.setAttribute('placeholder',data.others.placeholder); }
 				if(data.others.text){ input.setAttribute('value',data.others.text); }
@@ -38,8 +40,26 @@ class FormBuilder{
 				// generate div container & set elements
 				node 	= document.createElement('div');
 				node.setAttribute('class','form-group');
-				node.appendChild(label);
-				node.appendChild(input);
+				
+				if(data.others.input_type && data.others.input_type === "datetime"){
+					var span_item = null, span_group = null;
+					span_group = document.createElement('span');
+					span_group.setAttribute('class','input-group-addon');
+					span_item = document.createElement('span');
+					span_item.setAttribute('class','glyphicon glyphicon-calendar');
+					span_group.appendChild(span_item);
+
+					var subnode = document.createElement('div');
+					subnode.setAttribute('class','input-group date datepicker');
+					subnode.appendChild(label);
+					subnode.appendChild(input);
+					subnode.appendChild(span_group);
+					node.appendChild(subnode);
+				}else{
+					node.appendChild(label);
+					node.appendChild(input);
+				}
+
 			break;
 			case 'textarea':
 				// label
@@ -178,6 +198,12 @@ class FormBuilder{
 									field.name = resp.data[position].field_name;
 									field.type = "input";
 									field.others.input_type = "number";
+									field.others.label = resp.data[position].field_name;
+								break;
+								case 'datetime':
+									field.name = resp.data[position].field_name;
+									field.type = "input";
+									field.others.input_type = "datetime";
 									field.others.label = resp.data[position].field_name;
 								break;
 							}
