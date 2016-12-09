@@ -69,11 +69,13 @@ class FormBuilder{
 				label.appendChild(text);
 
 				// textarea 
+				var css_classes = "form-control"
+				if(data.others['html-editor']){ css_classes+=" html-editor";}
 				input	= document.createElement('textarea');
 				input.setAttribute('id',data.name);
 				input.setAttribute('data-field-name',data.name);
 				input.setAttribute('rows','5');
-				input.setAttribute('class','form-control html-editor');
+				input.setAttribute('class',css_classes);
 
 				// generate div container & set elements
 				node 	= document.createElement('div');
