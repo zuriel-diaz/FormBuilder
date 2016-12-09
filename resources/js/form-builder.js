@@ -73,7 +73,7 @@ class FormBuilder{
 				input.setAttribute('id',data.name);
 				input.setAttribute('data-field-name',data.name);
 				input.setAttribute('rows','5');
-				input.setAttribute('class','form-control');
+				input.setAttribute('class','form-control html-editor');
 
 				// generate div container & set elements
 				node 	= document.createElement('div');
@@ -228,7 +228,7 @@ class FormBuilder{
 		var button 	= document.createElement('button');
 		var text 	= document.createTextNode('Submit');
 		button.setAttribute('type','submit');
-		button.setAttribute('class','btn btn-default');
+		button.setAttribute('class','btn btn-primary');
 		button.appendChild(text);
 		form.appendChild(button);
 
@@ -237,6 +237,9 @@ class FormBuilder{
 	
 		// check if some 'datepicker' has been generated, so we need to initialize it.
 		if( $("form div.datepicker").length ){ $("form div.datepicker").datetimepicker(); }
+
+		//
+		if( $("form textarea.html-editor").length ){ tinymce.init({ selector: '.html-editor' }); }
 
 	}
 
