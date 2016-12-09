@@ -51,9 +51,9 @@ class FormBuilder{
 
 					var subnode = document.createElement('div');
 					subnode.setAttribute('class','input-group date datepicker');
-					subnode.appendChild(label);
 					subnode.appendChild(input);
 					subnode.appendChild(span_group);
+					node.appendChild(label);
 					node.appendChild(subnode);
 				}else{
 					node.appendChild(label);
@@ -234,6 +234,10 @@ class FormBuilder{
 
 		// finally add form element into container.
 		container.appendChild(form);
+	
+		// check if some 'datepicker' has been generated, so we need to initialize it.
+		if( $("form div.datepicker").length ){ $("form div.datepicker").datetimepicker(); }
+
 	}
 
 }
