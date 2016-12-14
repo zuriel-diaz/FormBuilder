@@ -39,7 +39,7 @@
       <div class="starter-template">
         <h1>View</h1>
         
-        <div id="formbuilder-container"></div>
+        <div id="data-container"></div>
 
       </div>
 
@@ -52,9 +52,33 @@
   <script type="application/javascript" src="./resources/js/bootstrap.min.js"></script>
   <script type="application/javascript" src="./resources/js/tinymce.min.js"></script>
   <script type="application/javascript" src="./resources/js/bootstrap-datetimepicker.min.js"></script>
+  <script type="text/javascript" src="./resources/js/urlParameters.js"></script>
 	<script type="application/javascript">
 
+    var endPoint = "http://127.0.0.1:3600/api/getData", data = {"table_name":"experiment"};
 
+    $.ajax({
+      url:          endPoint,
+      type:         'POST',
+      contentType:  'application/json',
+      data:         JSON.stringify(data),
+      dataType:     'json',
+      success:  function(responseData, textStatus, jQxhr){
+        
+        if( !responseData.errors && responseData.fields.length >= 1 ){
+          
+          for(var position = 0; position < responseData.fields.length; position++){
+            var item = responseData.fields[position];
+            //console.log('first_name->'+item.first_name+",last_name->"+item.last_name+",email->"+item.email);
+          }
+
+        }
+
+      },
+      error:    function(jQxhr, textStatus, errorThrown){
+        console.log(errorThrown);
+      }
+    });    
 		
 	</script>
   <script type="text/javascript" src="./resources/js/form-validation.js"></script>
