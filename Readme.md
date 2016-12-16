@@ -26,7 +26,7 @@ This project let to users on form generation.
 
 ## Components
 
-- Input text element: We need to generate an object with the following fields:
+- **Input text element**: We need to generate an object with the following fields:
   -- **name**: html input name.
   -- **type**: input
   --**others**: this is an object and we need to define the following fields:
@@ -37,7 +37,7 @@ This project let to users on form generation.
 ```javascript
 fields = [{"name":"first_name","type":"input","others":{"input_type":"text","label":"First Name","placeholder":"First name"}}]
 ```
-- Select element: We need to generate an object with the following fields:
+- **Select element**: We need to generate an object with the following fields:
   -- **name**: html select name.
   -- **type**: select
   --**others**: this is an object and we need to define the following fields:
@@ -49,7 +49,7 @@ fields = [{"name":"first_name","type":"input","others":{"input_type":"text","lab
 ```javascript
 fields = [{"name":"genre","type":"select","others":{"label":"Genre","options":[{"value":"male","text":"Male"},{"value":"female","text":"Female"}]}}]
 ```
-- TextArea  element: We need to generate an object with the following fields:
+- **TextArea  element**: We need to generate an object with the following fields:
   -- **name**: html input name.
   -- **type**: textarea
   --**others**: this is an object and we need to define the following fields:
@@ -59,7 +59,7 @@ fields = [{"name":"genre","type":"select","others":{"label":"Genre","options":[{
 ```javascript
 fields = [{"name":"comments","type":"textarea","others":{"label":"Comments","html-editor":false}}]
 ```
-- HtmlEditor  element: We need to generate an object with the following fields:
+- **HtmlEditor  element**: We need to generate an object with the following fields:
   -- **name**: html input name.
   -- **type**: textarea
   --**others**: this is an object and we need to define the following fields:
@@ -69,7 +69,7 @@ fields = [{"name":"comments","type":"textarea","others":{"label":"Comments","htm
 ```javascript
 fields = [{"name":"comments","type":"textarea","others":{"label":"Comments","html-editor":true}}]
 ```
-- Datetime  element: We need to generate an object with the following fields:
+- **Datetime  element**: We need to generate an object with the following fields:
   -- **name**: html input name.
   -- **type**: input
   --**others**: this is an object and we need to define the following fields:
@@ -77,7 +77,7 @@ fields = [{"name":"comments","type":"textarea","others":{"label":"Comments","htm
   * **label**: Field name.
   
 ```javascript
-fields = [{"name":"comments","type":"textarea","others":{"label":"Comments","html-editor":true}}]
+fields = [{"name":"created_at","type":"input","others":{"input_type":"datetime","label":"Created at"}}]
 ```
 
 **Please check the index file on this repository for check a basic implementation for all this components.**
