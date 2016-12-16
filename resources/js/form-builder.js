@@ -234,7 +234,12 @@ class FormBuilder{
 		button.appendChild(text);
 		form.appendChild(button);
 
-		// finally add form element into container.
+		// also we need to add an error-message element
+		var messages_container = document.createElement('div');
+		messages_container.setAttribute('id','messages_container');
+		container.appendChild(messages_container);
+
+		// append to container element.
 		container.appendChild(form);
 	
 		// check if some 'datepicker' has been generated, so we need to initialize it.
